@@ -12,7 +12,7 @@ namespace Base.Infraestructure.Repositories.Products
 
         public async Task<IEnumerable<Product>> ListProducts(PagedQueryDto filter)
         {
-            return await context.Products.OrderBy(x => x.Id).ApplyQueryOptions(filter.Page, filter.Size).ToListAsync();
+            return await context.Products.OrderBy(x => x.Id).ApplyQueryOptions(filter.Page, filter.PageSize).ToListAsync();
         }
     }
 }

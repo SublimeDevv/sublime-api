@@ -1,14 +1,14 @@
 using Base.API;
 using Base.Application;
 using Base.Infraestructure;
+using Base.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPresentation();
 builder.Services.AddApplication();
 builder.Services.AddInfraestructure();
-
-builder.Services.AddOpenApi();
+builder.Services.AddIdentity(builder.Configuration);
 
 var app = builder.Build();
 
@@ -23,8 +23,11 @@ if (app.Environment.IsProduction())
     app.UseHttpsRedirection();
 }
 
+app.UseExceptionHandler();
+
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

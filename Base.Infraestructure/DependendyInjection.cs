@@ -1,5 +1,6 @@
 ﻿using Base.Application.Contracts.Notifications;
 using Base.Application.Contracts.Persistence;
+using Base.Application.Contracts.Repositories.Auth;
 using Base.Application.Contracts.Repositories.Products;
 using Base.Infraestructure.Notifications;
 using Base.Infraestructure.Repositories.Products;
@@ -13,7 +14,7 @@ namespace Base.Infraestructure
     {
         public static IServiceCollection AddInfraestructure(this IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("name=DefaultConnection"));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("name=Database"));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWorkEF>();
             services.AddScoped<IServiceNotifications, EmailService>();

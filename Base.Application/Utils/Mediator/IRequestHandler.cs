@@ -1,11 +1,9 @@
-﻿using Base.Application.Utils.Result;
-
-namespace Base.Application.Utils.Mediator
+﻿namespace Base.Application.Utils.Mediator
 {
     public interface IRequestHandler<TRequest, TResponse>
-        where TRequest : IRequest<TResponse>
+       where TRequest : IRequest<TResponse>
     {
-        Task<Result<TResponse>> Handle(TRequest request);
+        Task<TResponse> Handle(TRequest request);
     }
 
     public interface IRequestHandler<TRequest>

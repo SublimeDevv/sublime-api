@@ -1,4 +1,6 @@
-﻿using Microsoft.OpenApi.Models;
+using Asp.Versioning;
+using Base.API.Middleware;
+using Microsoft.OpenApi.Models;
 
 namespace Base.API
 {
@@ -6,6 +8,9 @@ namespace Base.API
     {
         public static IServiceCollection AddPresentation(this IServiceCollection services)
         {
+            services.AddExceptionHandler<GlobalExceptionHandler>();
+            services.AddProblemDetails();
+
             services.AddControllers();
             services.AddRouting(options => options.LowercaseUrls = true);
 
@@ -14,23 +19,29 @@ namespace Base.API
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
+                    Title = "Base Api",
                     Version = "v1",
-                    Title = "Base API",
-                    Description = "API de Base",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Sublime Team"
-                    }
+                    Description = "Backend construido en ASP.NET 9 aplicando arquitectura limpia."
                 });
 
-                //options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                //{
-                //    In = ParameterLocation.Header,
-                //    Name = "Authorization",
-                //    Type = SecuritySchemeType.ApiKey
-                //});
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
             });
 
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ApiVersionReader = new UrlSegmentApiVersionReader();
+            }).AddApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+            });
 
             return services;
         }

@@ -1,5 +1,4 @@
 ﻿using Base.Application.Exceptions;
-using Base.Application.Utils.Result;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -9,7 +8,7 @@ namespace Base.Application.Utils.Mediator
     {
         private readonly IServiceProvider serviceProvider = serviceProvider;
 
-        public async Task<Result<TResponse>> Send<TResponse>(IRequest<TResponse> request)
+        public async Task<TResponse> Send<TResponse>(IRequest<TResponse> request)
         {
 
             await ValidationMediator(request);
@@ -19,7 +18,7 @@ namespace Base.Application.Utils.Mediator
             var handler = serviceProvider.GetService(handlerType) ?? throw new MediatorException($"No handler found for request of type {request.GetType().Name}");
             var methodInfo = handlerType.GetMethod("Handle")!;
 
-            return await (Task<Result<TResponse>>)methodInfo.Invoke(handler, [request])!;
+            return await (Task<TResponse>)methodInfo.Invoke(handler, [request])!;
         }
 
         public async Task Send(IRequest request)
@@ -55,7 +54,7 @@ namespace Base.Application.Utils.Mediator
 
                 if (!validationResult.IsValid)
                 {
-                    throw new ValidationExceptionP(validationResult);
+                    throw new ValidationExceptionFluent(validationResult);
                 }
             }
 

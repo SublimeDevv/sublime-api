@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.1" />
+    <PackageReference Include="Asp.Versioning.OData.ApiExplorer" Version="8.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.12">
       <PrivateAssets>all</PrivateAssets>
@@ -21,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Base.Application\Base.Application.csproj" />
+    <ProjectReference Include="..\Base.Identity\Base.Identity.csproj" />
     <ProjectReference Include="..\Base.Infraestructure\Base.Infraestructure.csproj" />
   </ItemGroup>
 

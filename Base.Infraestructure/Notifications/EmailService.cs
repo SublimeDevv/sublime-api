@@ -1,4 +1,4 @@
-﻿using Base.Application.Contracts.Notifications;
+using Base.Application.Contracts.Notifications;
 using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Net.Mail;
@@ -11,11 +11,25 @@ namespace Base.Infraestructure.Notifications
 
         public async Task SendEmail()
         {
-            var asunto = "CORREO DE PRUEBA";
-            var cuerpo = "Este es un correo de prueba";
+            await SendMessage("juanmen1404@gmail.com", "CORREO DE PRUEBA", "Este es un correo de prueba");
+        }
 
-            await SendMessage("juanmen1404@gmail.com", asunto, cuerpo);
+        public async Task SendPasswordResetEmailAsync(string toEmail, string resetToken)
+        {
+            var subject = "Restablece tu contraseña";
+            var body = $"""
+                Hola,
 
+                Recibimos una solicitud para restablecer la contraseña de tu cuenta.
+
+                Tu token de restablecimiento es:
+
+                {resetToken}
+
+                Este token expira en 24 horas. Si no solicitaste este cambio, ignora este mensaje.
+                """;
+
+            await SendMessage(toEmail, subject, body);
         }
 
         private async Task SendMessage(string addressee, string subject, string body)
