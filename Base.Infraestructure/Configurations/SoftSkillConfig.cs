@@ -21,6 +21,8 @@ namespace Base.Infraestructure.Configurations
             builder.Property(s => s.DeletedAt).HasColumnType("datetime2");
 
             builder.HasIndex(s => s.PortfolioId);
+
+            builder.HasQueryFilter(c => !c.IsDeleted);
         }
     }
 }

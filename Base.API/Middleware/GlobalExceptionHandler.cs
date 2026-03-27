@@ -21,27 +21,32 @@ namespace Base.API.Middleware
                 BusinessRuleException => (
                     StatusCodes.Status400BadRequest,
                     "Business rule violation",
-                    (List<string>)[exception.Message]),
+                    [exception.Message]),
 
                 NotFoundException => (
                     StatusCodes.Status404NotFound,
                     "Resource not found",
-                    (List<string>)[exception.Message]),
+                    [exception.Message]),
 
                 KeyNotFoundException => (
                     StatusCodes.Status404NotFound,
                     "Resource not found",
-                    (List<string>)[exception.Message]),
+                    [exception.Message]),
 
+                UnauthorizedAccessException => (
+                    StatusCodes.Status401Unauthorized,
+                    "Unauthorized Access",
+                    [exception.Message]),
+                
                 InvalidOperationException => (
                     StatusCodes.Status409Conflict,
                     "Operation not allowed",
-                    (List<string>)[exception.Message]),
+                    [exception.Message]),
 
                 _ => (
                     StatusCodes.Status500InternalServerError,
                     "An unexpected error occurred",
-                    (List<string>)["An internal server error has occurred."])
+                    ["An internal server error has occurred."])
             };
 
             if (statusCode == StatusCodes.Status500InternalServerError)

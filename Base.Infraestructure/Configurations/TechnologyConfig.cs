@@ -19,6 +19,8 @@ namespace Base.Infraestructure.Configurations
             builder.Property(t => t.UpdatedAt).HasColumnType("datetime2");
             builder.Property(t => t.IsDeleted).IsRequired().HasColumnType("bit");
             builder.Property(t => t.DeletedAt).HasColumnType("datetime2");
+
+            builder.HasQueryFilter(c => !c.IsDeleted);
         }
     }
 }

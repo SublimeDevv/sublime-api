@@ -11,14 +11,14 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<PostTechnology>> ListByPostAsync(Guid postId)
         {
             return await _db.PostTechnologies
-                .Where(pt => pt.PostId == postId && !pt.IsDeleted)
+                .Where(pt => pt.PostId == postId)
                 .ToListAsync();
         }
 
         public async Task<PostTechnology?> FindAsync(Guid postId, Guid technologyId)
         {
             return await _db.PostTechnologies
-                .FirstOrDefaultAsync(pt => pt.PostId == postId && pt.TechnologyId == technologyId && !pt.IsDeleted);
+                .FirstOrDefaultAsync(pt => pt.PostId == postId && pt.TechnologyId == technologyId);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<ProjectImage>> ListByProjectAsync(Guid projectId)
         {
             return await _db.ProjectImages
-                .Where(p => p.ProjectId == projectId && !p.IsDeleted)
+                .Where(p => p.ProjectId == projectId)
                 .ToListAsync();
         }
     }

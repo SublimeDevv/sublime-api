@@ -13,7 +13,7 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<WorkExperience>> ListByPortfolioAsync(Guid portfolioId, PagedQueryDto filter)
         {
             return await _db.WorkExperiences
-                .Where(w => w.PortfolioId == portfolioId && !w.IsDeleted)
+                .Where(w => w.PortfolioId == portfolioId)
                 .OrderByDescending(w => w.StartDate)
                 .ApplyQueryOptions(filter.Page, filter.PageSize)
                 .ToListAsync();

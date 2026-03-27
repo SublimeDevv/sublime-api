@@ -20,6 +20,8 @@ namespace Base.Infraestructure.Configurations
             builder.Property(p => p.DeletedAt).HasColumnType("datetime2");
 
             builder.HasIndex(p => p.PostId);
+
+            builder.HasQueryFilter(c => !c.IsDeleted);
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<Portfolio>> ListAsync(PagedQueryDto filter)
         {
             return await _db.Portfolios
-                .Where(p => !p.IsDeleted)
                 .OrderBy(p => p.Name)
                 .ApplyQueryOptions(filter.Page, filter.PageSize)
                 .ToListAsync();
@@ -22,7 +21,7 @@ namespace Base.Infraestructure.Repositories
         public async Task<Portfolio?> GetBySlugAsync(string slug)
         {
             return await _db.Portfolios
-                .FirstOrDefaultAsync(p => p.Slug == slug && !p.IsDeleted);
+                .FirstOrDefaultAsync(p => p.Slug == slug);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<Project>> ListByPortfolioAsync(Guid portfolioId, PagedQueryDto filter)
         {
             return await _db.Projects
-                .Where(p => p.PortfolioId == portfolioId && !p.IsDeleted)
+                .Where(p => p.PortfolioId == portfolioId)
                 .OrderBy(p => p.Name)
                 .ApplyQueryOptions(filter.Page, filter.PageSize)
                 .ToListAsync();

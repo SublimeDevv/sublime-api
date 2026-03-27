@@ -1,5 +1,6 @@
 using Base.Application.Contracts.Repositories.Auth;
 using Base.Application.DTOs.Auth;
+using Base.Application.Exceptions;
 using Base.Application.Utils.Mediator;
 
 namespace Base.Application.UseCases.Auth.Commands.Login

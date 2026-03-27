@@ -13,7 +13,6 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<Post>> ListAsync(PagedQueryDto filter)
         {
             return await _db.Posts
-                .Where(p => !p.IsDeleted)
                 .OrderByDescending(p => p.CreatedAt)
                 .ApplyQueryOptions(filter.Page, filter.PageSize)
                 .ToListAsync();
@@ -22,7 +21,7 @@ namespace Base.Infraestructure.Repositories
         public async Task<Post?> GetBySlugAsync(string slug)
         {
             return await _db.Posts
-                .FirstOrDefaultAsync(p => p.Slug == slug && !p.IsDeleted);
+                .FirstOrDefaultAsync(p => p.Slug == slug);
         }
     }
 }

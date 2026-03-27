@@ -13,7 +13,6 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<Category>> ListAsync(PagedQueryDto filter)
         {
             return await _db.Categories
-                .Where(c => !c.IsDeleted)
                 .OrderBy(c => c.Name)
                 .ApplyQueryOptions(filter.Page, filter.PageSize)
                 .ToListAsync();

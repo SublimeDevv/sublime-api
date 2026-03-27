@@ -11,7 +11,7 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<SocialMedia>> ListByPortfolioAsync(Guid portfolioId)
         {
             return await _db.SocialsMedia
-                .Where(s => s.PortfolioId == portfolioId && !s.IsDeleted)
+                .Where(s => s.PortfolioId == portfolioId)
                 .OrderBy(s => s.Name)
                 .ToListAsync();
         }

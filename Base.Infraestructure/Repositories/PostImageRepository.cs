@@ -11,7 +11,7 @@ namespace Base.Infraestructure.Repositories
         public async Task<IEnumerable<PostImage>> ListByPostAsync(Guid postId)
         {
             return await _db.PostImages
-                .Where(p => p.PostId == postId && !p.IsDeleted)
+                .Where(p => p.PostId == postId)
                 .OrderBy(p => p.Order)
                 .ToListAsync();
         }
